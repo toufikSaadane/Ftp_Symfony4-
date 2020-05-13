@@ -39,8 +39,7 @@ class FtpDownloadFileCommand extends Command
             ->setName('ftp:downloadFile')
             ->setDescription('Add a short description for your command')
             ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
-        ;
+            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description');
     }
 
     /**
@@ -50,13 +49,19 @@ class FtpDownloadFileCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
-        $dis = $this->container->getParameter('files').$arg1;
+        $io=new SymfonyStyle($input, $output);
+        $arg1=$input->getArgument('arg1');
 
-        if ($this->ftpService->downloadFtp($dis, $arg1)){
-             printf("===================download %s, is gelukt\n", $arg1);
-         };
+        if (!empty($arg1)) {
+            $dis=$this->container->getParameter('files') . $arg1;
+            if ($this->ftpService->downloadFtp($dis, $arg1)) {
+                printf("===================download %s, is gelukt\n", $arg1);
+            }else {
+                throw new \Exception(" ===================Upload niet gelukt\n");
+            }
+        }else{
+            throw new \Exception(" =================== argument please\n");
+        }
         return 0;
     }
 }

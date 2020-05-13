@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ProductRepository", repositoryClass=ProductRepository::class)
  */
 class Product
 {
@@ -19,21 +20,25 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
      */
     private $title;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank()
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
      */
     private $rootstock;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     *
      */
     private $height;
 

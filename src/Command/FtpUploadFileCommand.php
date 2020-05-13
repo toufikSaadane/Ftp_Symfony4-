@@ -52,9 +52,16 @@ class FtpUploadFileCommand extends Command
     {
         $io=new SymfonyStyle($input, $output);
         $arg1=$input->getArgument('arg1');
-        $fileToUpload = $this->container->getParameter('files').$arg1;
-        if ($this->ftpService->uploadFtp( $arg1, $fileToUpload)){
-            printf("===================Upload %s, is gelukt\n", $arg1);
+        if (!empty($arg1)) {
+            $fileToUpload=$this->container->getParameter('files') . $arg1;
+            if ($this->ftpService->uploadFtp($arg1, $fileToUpload)) {
+                printf("===================Upload %s, is gelukt\n", $arg1);
+            }
+            {
+                throw new \Exception(" ===================Upload niet gelukt\n");
+            }
+        } else {
+            throw new \Exception(" =================== argument please\n");
         }
         return 0;
     }
