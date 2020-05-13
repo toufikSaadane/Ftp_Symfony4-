@@ -11,10 +11,29 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/esthervenrooij/Sites/s4BASICS/symfony4_3_*/src/Controller/FtpTestController.php'|file_link(0) }}">src/Controller/FtpTestController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/esthervenrooij/Sites/s4BASICS/symfony4_3_*/templates/ftp_test/index.html.twig'|file_link(0) }}">templates/ftp_test/index.html.twig</a></code></li>
-    </ul>
+    <table class="table table-borderless table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">title</th>
+            <th scope="col">Price</th>
+            <th scope="col">rootstock</th>
+            <th scope="col">Height</th>
+            <th scope="col">description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for p in pagination %}
+        <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.title }}</td>
+            <td>{{ p.price }}</td>
+            <td>{{ p.rootstock }}</td>
+            <td>{{ p.height }}</td>
+            <td>{{ p.description }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

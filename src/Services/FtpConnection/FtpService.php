@@ -31,15 +31,30 @@ class FtpService implements FtpConnector
         $ftp_conn=ftp_connect($this->ftp_server);
         $login=ftp_login($ftp_conn, $this->ftp_username, $this->ftp_userpass);
         $list = ftp_nlist($ftp_conn, ".");
-        dd($list);
 
         return $ftp_conn;
 
     }
-    public function downloadFtp($local_file){
 
-        if (ftp_get($this->connectToFtp(), $local_file, "Terminal.xml", FTP_BINARY)) {
-            return "Successfully written to $local_file\n";
+    /**
+     * @param $local_file
+     * @param $arg
+     * @return string
+     */
+    public function downloadFtp($local_file, $arg){
+        if (ftp_get($this->connectToFtp(), $local_file, $arg, FTP_BINARY)) {
+            return "Successfully written to $arg\n";
+        }
+    }
+
+    /**
+     * @param $remote_file
+     * @param $arg
+     * @return string
+     */
+    public function uploadFtp($remote_file, $arg){
+        if (ftp_put($this->connectToFtp(), $remote_file, $arg, FTP_ASCII)) {
+            return "successfully uploaded $arg\n";
         }
     }
 }
